@@ -5,7 +5,7 @@
 var http=require('http');
 var zlib=require('zlib');
 
-module.exports=function (options,args,callback) {
+module.exports=function (options,args,dataType,callback) {
     var req=http.get(options, (res) => {
         // 对响应进行处理
         var encoding = res.headers['content-encoding'];
@@ -28,18 +28,41 @@ module.exports=function (options,args,callback) {
             if (encoding == 'gzip') {
 
                 zlib.gunzip(buffer, function (err, decoded) {
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
 
-                    data = decoded.toString();
-                    callback( err, args, res.headers, data);
+
+                    if(dataType!='binary')
+                        data = decoded.toString();
+                    else
+                        data=decoded;
+
+                    callback( args, res.headers, data);
                 });
             } else if (encoding == 'deflate') {
                 zlib.inflate(buffer, function (err, decoded) {
-                    data = decoded.toString();
-                    callback( err, args, res.headers, data);
+                    if(err){
+                        console.log(err);
+                        return;
+                    }
+
+                    if(dataType!='binary')
+                        data = decoded.toString();
+                    else
+                        data=decoded;
+
+                    callback( args, res.headers, data);
                 });
             } else {
-                data = buffer.toString();
-                callback( null, args, res.headers, data);
+
+                if(dataType!='binary')
+                    data = buffer.toString();
+                else
+                    data = buffer;
+
+                callback( args, res.headers, data);
             }
         });
 

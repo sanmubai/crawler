@@ -4,6 +4,7 @@
 
 var cheerio=require('cheerio');
 var get=require('./crawler');
+var fs=require('fs');
 
 var options={
     hostname:'blog.sanmubai.com',
@@ -25,7 +26,7 @@ var options={
 };
 
 
-var cb=function (err,args,headers,data) {
+var cb=function (args,headers,data) {
     // console.log('==>header \n', headers);
 
     var $=cheerio.load(data);
@@ -33,7 +34,18 @@ var cb=function (err,args,headers,data) {
     console.log($('h1').text());
 };
 
+get(options,null,null,cb);
 
 
 
-get(options,null,cb);
+
+
+var cb2=function (args,headers,data) {
+
+    fs.writeFile('baidu.png',data,function () {
+        console.log('save ok');
+    })
+};
+
+
+get("http://www.baidu.com/img/bd_logo1.png",null,'binary',cb2);
