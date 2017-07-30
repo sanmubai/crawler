@@ -3,3 +3,6 @@
 *.txt
 node_modules
 *.png
+local
+*.log
+config.json

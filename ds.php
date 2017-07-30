@@ -5,11 +5,26 @@
  * Date: 2017/7/16
  * Time: 20:40
  */
-$output=file_get_contents('./test.html');
 
-$contents = mb_convert_encoding($output, 'utf-8', 'GBK,UTF-8,ASCII');
+/*
+ $str='';
+for($i=1;$i<86;$i++){
 
-echo $contents;
+    $content=file_get_contents('./page'.$i.'.txt');
+
+    $str.=$content;
+
+}
+
+file_put_contents('srysj.txt',$str);
+
+*/
+
+$data=file_get_contents("./page1.html");
+
+//$data=iconv("UTF-8","GBK//IGNORE",$data);
+
+echo $data;
 
 
 

@@ -19,8 +19,7 @@ module.exports=function (options,args,dataType,callback) {
             chunks.push(chunk);
         });
 
-
-        res.on('end',()=>{
+        res.on('end',()=> {
 
             var data;
             var buffer=Buffer.concat(chunks);
@@ -66,10 +65,14 @@ module.exports=function (options,args,dataType,callback) {
             }
         });
 
+        res.on("error",(err)=>{
+            console.log("res_error:",err);
+        });
+
     });
 
     req.on('error',function(err){
-        console.error(err);
+        console.log("req_error:",err);
     });
     req.end();
 };
