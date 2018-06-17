@@ -66,13 +66,15 @@ module.exports=function (options,args,dataType,callback) {
         });
 
         res.on("error",(err)=>{
-            console.log("res_error:",err);
+            // console.log("res_error:",err);
+            callback('error',err,args);
         });
 
     });
 
     req.on('error',function(err){
-        console.log("req_error:",err);
+        // console.log("req_error:",err);
+        callback('error',err,args);
     });
     req.end();
 };
