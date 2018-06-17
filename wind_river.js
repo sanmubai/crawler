@@ -11,17 +11,18 @@ var iconv = require('iconv-lite');
 const config=JSON.parse(fs.readFileSync("./config.json"));
 
 var folder="windRiver";
-var endPage=300000;
+var endPage=6406;
 var beginPage=0;
-var baseIndex="43133";
-var timerInner=100;
 
+var timerInner=100;
 
 
 var hostname=config.hostname;
 var cookie=config.cookie;
 var refer=config.refer;
 var userAgent=config.userAgent;
+var baseIndex=config.baseIndex;
+var prePath=config.prePath;
 
 if(!fs.existsSync('./'+folder)){
     fs.mkdirSync('./'+folder,0o777);
@@ -60,7 +61,7 @@ function getTs(page) {
 
     if(fs.existsSync("./windRiver/"+fileName)) return "exist";
 
-    var path="/20171107/eUARDxax/2016kb/hls/"+fileName;
+    var path=prePath+fileName;
     var options={
         hostname:hostname,
         port:80,
