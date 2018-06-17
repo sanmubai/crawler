@@ -7,3 +7,4 @@ local
 *.log
 config.json
 windRiver
+test

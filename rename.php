@@ -6,9 +6,32 @@
  * Time: 11:05
  */
 
-$base='assets/pics';
+$base='windRiver';
 
-dirCheck($base);
+rename1($base);
+
+function rename1($dir){
+if(!is_dir($dir)) {
+        return ;
+    }
+
+    $subDirs=scandir($dir);
+
+    foreach ($subDirs as $v){
+
+        if($v=='.' || $v=='..') continue;
+
+        $name=basename($v,".ts");
+
+        if(strlen($name)<4) {
+            // echo $name."\n";
+            echo $dir."/".$v."  ".$dir."/0".$v."\n";
+            rename($dir."/".$v,$dir."/0".$v);
+        }
+        
+
+    }
+}
 
 
 function dirCheck($dir){
